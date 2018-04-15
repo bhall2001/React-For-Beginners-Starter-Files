@@ -7,15 +7,20 @@ class Order extends React.Component {
     const count = this.props.order[key];
     const isAvailable = fish && fish.status === 'available';
 
-    if(!isAvailable) {
-        return <li>
-            Sorry {fish ? fish.name : 'fish'} is no longer available
-        </li>
+    // Make sure there is a fish loaded before continuing
+    if (!fish) {
+      return null;
     }
-    return <li>
-          {count} lbs {fish.name}
-          {formatPrice(count * fish.price)}
-        </li>;
+
+    if (!isAvailable) {
+      return <li>Sorry {fish ? fish.name : 'fish'} is no longer available</li>;
+    }
+    return (
+      <li>
+        {count} lbs {fish.name}
+        {formatPrice(count * fish.price)}
+      </li>
+    );
   };
 
   render() {
